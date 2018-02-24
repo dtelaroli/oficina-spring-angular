@@ -1,0 +1,31 @@
+package com.algaworks.patrimonio.resource;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.algaworks.patrimonio.model.Item;
+import com.algaworks.patrimonio.repository.ItemRepository;
+
+@RestController("/itens")
+@CrossOrigin("${origin-permitida}")
+public class ItemResource {
+
+	@Autowired
+	private ItemRepository itemRepository;
+	
+	@GetMapping
+	public List<Item> lista() {
+		return itemRepository.findAll();
+	}
+	
+	@PostMapping
+	public Item adicionar(@RequestBody Item item) {
+		return itemRepository.save(item);
+	}
+}
